@@ -28,29 +28,31 @@ import java.util.ArrayDeque;
 
 public class HtmlParser implements Html.TagHandler, ContentHandler {
 
+    // 处理我们自定义标签的类
     private final TagHandler mHandler;
-
+    // 系统的解析器
     private ContentHandler mWrapperContentHandler;
-
+    // 解析的文本那内容
     private Editable mOutput;
-
+    // 保存是否是我们自定义的标签
     private ArrayDeque<Boolean> mTagStatus = new ArrayDeque<>();
-
 
     public interface TagHandler {
         boolean handleTag(boolean opening, String tag, Editable output, Attributes attributes);
     }
-
     @Override
     public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+        // 每一个结点都会回调，
         if (mWrapperContentHandler == null) {
             mOutput = output;
+            // 保存系统的解析器处理
             mWrapperContentHandler = xmlReader.getContentHandler();
+            // 设置当前类处理系统标签
             xmlReader.setContentHandler(this);
+            // 记录标签的索引
             mTagStatus.addLast(Boolean.FALSE);
         }
     }
-
     public HtmlParser(TagHandler mHandler) {
         this.mHandler = mHandler;
     }

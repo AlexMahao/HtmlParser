@@ -19,8 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mText = ((TextView) findViewById(R.id.text));
         mText.setMovementMethod(LinkMovementMethod.getInstance());
-        mText.setHighlightColor(Color.TRANSPARENT);
-        mText.setText(fromHtml(getString(R.string.bind_invest_card_protocol)));
+        mText.setText(fromHtml(getString(R.string.tag_html)));
 
     }
 

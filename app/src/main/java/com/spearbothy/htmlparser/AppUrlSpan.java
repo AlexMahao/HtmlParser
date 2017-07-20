@@ -15,7 +15,9 @@ import android.widget.Toast;
  */
 
 public class AppUrlSpan extends ClickableSpan implements ParcelableSpan {
+
     private static final int APP_URL_SPAN = 100000;
+    
     private LinkTagAttribute entity;
 
     public AppUrlSpan(LinkTagAttribute entity) {
@@ -28,7 +30,7 @@ public class AppUrlSpan extends ClickableSpan implements ParcelableSpan {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        writeToParcelInternal(dest, flags);
+        dest.writeParcelable(this.entity, flags);
     }
 
     @Override
@@ -59,30 +61,17 @@ public class AppUrlSpan extends ClickableSpan implements ParcelableSpan {
     @Override
     public void onClick(View widget) {
         // 简单的弹出提示
-
         Log.i("info", "click");
         Toast.makeText(widget.getContext(), entity.getHref() + "", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public int getSpanTypeId() {
-        return getSpanTypeIdInternal();
-    }
-
-    //实现ParcelableSpan隐藏函数
-    public int getSpanTypeIdInternal() {
         return APP_URL_SPAN;
     }
-
-    //实现ParcelableSpan隐藏函数
-    public void writeToParcelInternal(Parcel dest, int flags) {
-        dest.writeParcelable(this.entity, flags);
-    }
-
     @Override
     public void updateDrawState(TextPaint ds) {
         super.updateDrawState(ds);
-
         ds.bgColor = Color.TRANSPARENT;
         ds.setUnderlineText(entity.isShowUnderline());
     }

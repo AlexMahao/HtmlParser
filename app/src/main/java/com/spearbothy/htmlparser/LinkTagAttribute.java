@@ -8,11 +8,8 @@ import android.os.Parcelable;
  * Created by mahao on 17-3-20.
  */
 public class LinkTagAttribute implements Parcelable {
-
     private String href;
-
     private boolean isShowUnderline;
-
 
     @Override
     public int describeContents() {

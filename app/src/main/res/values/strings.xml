@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">HtmlParser</string>
-     <string name="bind_invest_card_protocol">
+     <string name="tag_html">
         <![CDATA[
-        我已阅读并同意<app_a href="https://www.baidu.com" show_underline=false >《支付服务协议》</app_a>、<app_a href="https://www.baidu.com" show_underline=false >《委托扣款协议》</app_a>
+        我已阅读并同意<app_a href="https://www.baidu.com" show_underline=false >《注册协议》</app_a>、<app_a href="https://www.baidu.com" show_underline=false >《用户服务协议》</app_a>
         ]]>
     </string>
 </resources>

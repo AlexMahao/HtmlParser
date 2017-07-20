@@ -16,37 +16,40 @@ public class LinkHandler implements HtmlParser.TagHandler {
     public boolean handleTag(boolean opening, String tag, Editable output, Attributes attributes) {
         if (tag.equalsIgnoreCase("app_a")) {
             if (opening) {
-                // 获取属性，打上标记
+                // 开始标签，获取对应值
                 String href = attributes.getValue("href");
                 String showUnderline = attributes.getValue("show_underline");
                 if (TextUtils.isEmpty(showUnderline)) {
                     showUnderline = "true";
                 }
+                // 构造标签实体，用以保存数据
                 LinkTagAttribute entity = new LinkTagAttribute();
                 entity.setHref(href);
                 entity.setShowUnderline(Boolean.parseBoolean(showUnderline));
+                // 将解析的数据实体暂时保存到文本上 (打标记)
                 output.setSpan(entity, output.length(), output.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             } else {
+                // 获取之前保存的标记
                 LinkTagAttribute entity = getLast(output, LinkTagAttribute.class);
                 if (entity != null) {
-                    int start = output.getSpanStart(entity);// 开始位置
+                    // 获取开始标签的位置索引
+                    int start = output.getSpanStart(entity);
+                    // 移除之前的标记
                     output.removeSpan(entity);
                     int end = output.length();
                     if (start != end){
+                        // 设置自定义的Span
                         output.setSpan(new AppUrlSpan(entity),start,end,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }
             return true;
         }
-
         return false;
     }
 
-
     /**
      * 获取最后一个标记
-     *
      * @return
      */
     private static <T> T getLast(Spanned text, Class<T> kind) {
